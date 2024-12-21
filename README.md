@@ -16,11 +16,13 @@ Usage
 Open the Python script you want to run:
 
 song1.py - Generates an extended version of "Jingle Bells".
+
 song2.py - Generates "12 Days of Christmas".
 
 Run the script:
 
 python song1.py   # For "Jingle Bells"
+
 python song2.py   # For "12 Days of Christmas"
 The script will generate a .mid file in the same directory:
 
