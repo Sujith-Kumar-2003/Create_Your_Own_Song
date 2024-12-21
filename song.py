@@ -1,61 +1,64 @@
 import pygame
 import numpy as np
+import math
 
-pygame.mixer.pre_init(frequency=44100, size=-16, channels=1, buffer=512)
+# Initialize Pygame Mixer
+pygame.mixer.pre_init(frequency=44100, size=-16, channels=2, buffer=512)
 pygame.init()
 
+# Function to play a tone
 def play_tone(frequency, duration, volume=0.5):
     sample_rate = 44100
     t = np.linspace(0, duration, int(sample_rate * duration), endpoint=False)
     wave = 32767 * volume * np.sin(2 * np.pi * frequency * t)
-    wave = wave.astype(np.int16)  
-    sound = pygame.sndarray.make_sound(wave)
+    wave = wave.astype(np.int16)
+    
+    # Convert mono to stereo
+    stereo_wave = np.stack((wave, wave), axis=-1)
+    
+    sound = pygame.sndarray.make_sound(stereo_wave)
     sound.play()
     pygame.time.delay(int(duration * 1000))
     sound.stop()
 
-# gebneratedf wiht random values, need to change to set tot eh theme.
-def s1():
-    play_tone(164.81, 1)  
-    play_tone(110.00, 1)  
-    play_tone(130.81, 0.5)  
-    play_tone(146.83, 0.5) 
+# "Jingle Bells" song using the above tones
+def jingle_bells():
+    # First part: "Jingle bells, jingle bells"
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(196.00, 0.5)  # G
+    play_tone(220.00, 0.5)  # A
+    play_tone(246.94, 0.5)  # B
+    play_tone(220.00, 0.5)  # A 
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
 
-def s2():
-    play_tone(164.81, 1)
-    play_tone(110.00, 1)
-    play_tone(138.59, 0.5)  
-    play_tone(146.83, 0.5)
+    # Second part: "Oh! what fun it is to ride"
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(196.00, 0.5)  # G
+    play_tone(220.00, 0.5)  # A
+    play_tone(246.94, 0.5)  # B
 
-def s3():
-    play_tone(164.81, 3)
-    play_tone(110.00, 3)
-    play_tone(130.81, 0.5)
-    play_tone(146.83, 0.5)
+    # Ending: "In a one horse open sleigh"
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(220.00, 0.5)  # A
+    play_tone(196.00, 0.5)  # G
 
-def s4():
-    play_tone(123.47, 1)  
-    play_tone(82.41, 1)  
-    play_tone(98.00, 0.5)  
-    play_tone(110.00, 0.5)  
+# Play the "Jingle Bells" melody
+jingle_bells()
 
-def s5():
-    play_tone(146.83, 3)  
-    play_tone(98.00, 3)   
-    play_tone(130.81, 0.5)
-    play_tone(123.47, 0.5)
-
-for _ in range(4):
-    s1()
-
-for _ in range(4):
-    s2()
-
-s3()
-
-for _ in range(4):
-    s4()
-
-s5()
-
+# Quit pygame mixer after the song is played
 pygame.mixer.quit()
